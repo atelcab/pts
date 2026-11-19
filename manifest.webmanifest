@@ -1,0 +1,19 @@
+{
+  "name": "ATELCAB · Gestão de PTs",
+  "short_name": "ATELCAB",
+  "description": "ATELCAB, LDA. — Construções e Projectos Eléctricos",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#1b2559",
+  "theme_color": "#1b2559",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Visita de Campo", "url": "./visita.html", "icons": [{ "src": "icon-192.png", "sizes": "192x192" }] }
+  ]
+}
