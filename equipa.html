@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ATELCAB · Equipa / Team</title>
+<meta name="theme-color" content="#1b2559">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path d='M58 4 22 56h24l-8 40 40-56H54z' fill='%23c62828'/></svg>">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<style>
+:root{--navy:#1b2559;--navy2:#2a3577;--red:#c62828;--bg:#f3f5f9;--line:#e5e7eb;--muted:#6b7280;--text:#111827;--green:#16a34a}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--text);font-size:15px}
+a{color:#2563eb}
+header{background:var(--navy);color:#fff;position:sticky;top:0;z-index:10;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.bar{max-width:1100px;margin:auto;display:flex;align-items:center;gap:10px;padding:8px 16px}
+.brand{display:flex;align-items:center;gap:10px;color:#fff;text-decoration:none}
+.brand .wm{font-family:Georgia,serif;font-weight:700;font-size:18px}.brand small{display:block;font-size:11px;opacity:.75}
+.sp{flex:1}
+.hbtn{background:rgba(255,255,255,.12);color:#fff;border:0;border-radius:8px;padding:7px 11px;font:inherit;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;white-space:nowrap}
+main{max-width:1100px;margin:auto;padding:16px}
+h1{font-size:22px;color:var(--navy);margin:4px 0 12px}h2{font-size:18px;color:var(--navy);margin:0 0 12px}
+.card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:16px}
+.hero{background:linear-gradient(135deg,var(--navy),#0e1438);color:#fff;border-radius:14px;padding:26px 20px;margin-bottom:16px;display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.hero .wm{font-family:Georgia,serif;font-size:28px;font-weight:700}.hero p{margin:4px 0 0;opacity:.85}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:16px}
+.stat{background:#fff;border:1px solid var(--line);border-left:4px solid var(--c,var(--navy));border-radius:12px;padding:12px 14px}
+.stat .n{font-size:26px;font-weight:700}.stat .l{font-size:13px;color:var(--muted)}
+.groups{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-bottom:16px}
+.gcard{display:block;background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;text-decoration:none;color:inherit;border-top:5px solid var(--c)}
+.gcard:hover{box-shadow:0 4px 14px rgba(0,0,0,.08)}
+.gcard h2{margin-bottom:4px}.gcard .d{color:var(--muted);font-size:14px;margin-bottom:10px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{display:inline-block;padding:4px 10px;border-radius:99px;background:#eef2ff;color:var(--navy);font-size:12px;font-weight:600;text-decoration:none}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+.mcard{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:6px}
+.avatar{width:104px;height:104px;border-radius:50%;object-fit:cover;background:#e5e7eb;border:3px solid #fff;box-shadow:0 0 0 2px var(--navy)}
+.avatar.init{display:flex;align-items:center;justify-content:center;font-size:34px;font-weight:700;color:#fff;background:var(--navy)}
+.mcard .nm{font-weight:700;font-size:16px;margin-top:4px}.mcard .tt{color:var(--muted);font-size:13px;min-height:18px}
+.yrs{display:inline-block;padding:3px 10px;border-radius:99px;background:#fef2f2;color:var(--red);font-size:12px;font-weight:700}
+.sect{margin:22px 0 10px;display:flex;align-items:center;gap:10px}
+.sect h2{margin:0}.sect .cnt{background:var(--navy);color:#fff;border-radius:99px;padding:2px 9px;font-size:12px;font-weight:700}
+.sect::after{content:"";flex:1;height:2px;background:var(--line)}
+button,.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:9px 14px;border:0;border-radius:8px;font:inherit;font-weight:600;cursor:pointer;background:var(--navy);color:#fff;text-decoration:none;font-size:14px}
+button:disabled{opacity:.5}
+.b-red{background:var(--red)}.b-light{background:#fff;color:var(--navy);border:1px solid #d1d5db}.b-sm{padding:6px 10px;font-size:13px}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+label{display:block;font-size:13px;font-weight:600;margin:10px 0 4px}
+input,select,textarea{width:100%;padding:10px;border:1px solid #d1d5db;border-radius:8px;font:inherit;background:#fff}
+textarea{min-height:80px;resize:vertical}
+.row{display:flex;gap:10px;flex-wrap:wrap}.row>*{flex:1;min-width:140px}
+.muted{color:var(--muted)}.small{font-size:13px}
+.lrow{border:1px solid var(--line);border-radius:10px;padding:10px;margin-bottom:8px;background:#fafafa;position:relative}
+.lrow .x{position:absolute;top:6px;right:6px;background:#fff;color:var(--red);border:1px solid #fecaca;padding:2px 8px}
+#toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#111827;color:#fff;padding:12px 18px;border-radius:10px;font-size:14px;display:none;z-index:99;max-width:90%}
+#toast.err{background:var(--red)}
+/* ===== CV padronizado ===== */
+.cv{background:#fff;max-width:820px;margin:0 auto;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.cv-top{background:var(--navy);color:#fff;display:flex;align-items:center;gap:12px;padding:14px 22px}
+.cv-top .wm{font-family:Georgia,serif;font-size:20px;font-weight:700}.cv-top small{display:block;font-size:11px;opacity:.8}
+.cv-top .ttl{margin-left:auto;font-size:13px;letter-spacing:3px;font-weight:700;opacity:.9}
+.cv-strip{height:4px;background:var(--red)}
+.cv-head{display:flex;gap:20px;padding:22px;align-items:center;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.cv-head .avatar{width:130px;height:130px;box-shadow:0 0 0 3px var(--red)}
+.cv-head h1{margin:0;font-size:26px}.cv-head .tt{font-size:16px;color:var(--red);font-weight:600;margin-top:2px}
+.cv-head .meta{font-size:13px;color:var(--muted);margin-top:8px;line-height:1.6}
+.cv-body{padding:6px 22px 22px}
+.cv h3{font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--navy);border-bottom:2px solid var(--navy);padding-bottom:4px;margin:20px 0 10px}
+.cv .item{display:grid;grid-template-columns:130px 1fr;gap:4px 14px;margin-bottom:10px;font-size:14px}
+.cv .item .per{color:var(--muted);font-weight:600}.cv .item .rl{font-weight:700}.cv .item .co{color:var(--red);font-weight:600}
+.cv .item .ds{white-space:pre-wrap;color:#374151;margin-top:2px}
+.cv p{font-size:14px;line-height:1.55;white-space:pre-wrap;margin:0}
+.cv-foot{background:#f3f5f9;padding:10px 22px;font-size:11px;color:var(--muted);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+@media (max-width:600px){.cv .item{grid-template-columns:1fr}.brand small{display:none}.mcard{padding:12px 8px}.mcard .avatar{width:84px;height:84px}.avatar.init{font-size:28px}.mcard .nm{font-size:14px}}
+@media print{
+  header,.noprint,#toast{display:none!important} body{background:#fff} main{padding:0;max-width:none}
+  .cv{border:0;max-width:none} .cv-top,.cv-strip,.avatar.init{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .mcard{break-inside:avoid;border:1px solid #ccc}.grid{grid-template-columns:repeat(3,1fr)}
+  .sect{break-after:avoid} .print-head{display:flex!important}
+}
+.print-head{display:none;align-items:center;gap:12px;margin-bottom:10px}
+</style>
+</head>
+<body>
+<div id="root"></div><div id="toast"></div>
+<script>
+// ================= Marca =================
+function logo(size = 40, light = false) {
+  const c = light ? '#fff' : '#1b2559';
+  const arc = y => `<path d="M30 ${y}h-14a7 7 0 0 0 0 14h14" fill="none" stroke="${c}" stroke-width="3.2" stroke-linecap="round"/><path d="M30 ${y}h14a7 7 0 0 1 0 14h-14" fill="none" stroke="${c}" stroke-width="3.2" stroke-linecap="round"/>`;
+  return `<svg width="${size}" height="${size}" viewBox="0 0 80 64"><path d="M30 6v52" stroke="${c}" stroke-width="3.2"/>${arc(6)}${arc(22)}${arc(38)}<path d="M68 4 56 30h9l-6 26 17-32h-9l7-20z" fill="#e53935"/></svg>`;
+}
+
+// ================= Língua =================
+let LANG = 'pt'; try { LANG = localStorage.getItem('atelcab_lang') || 'pt'; } catch {}
+const L = (pt, en) => LANG === 'en' ? en : pt;
+const F = (o, k) => (LANG === 'en' && o[k + '_en']) ? o[k + '_en'] : (o[k + '_pt'] || o[k + '_en'] || '');
+function setLang(l) { LANG = l; try { localStorage.setItem('atelcab_lang', l); } catch {} route(); }
+const SLOGAN = () => L('Construções e Projectos Eléctricos', 'Electrical Construction & Engineering');
+const SECTIONS = ['direcao', 'gestao', 'engenharia', 'tecnicos'];
+const SECT = (s, g) => ({
+  direcao: g && g.slug !== 'empresa' ? L('Direcção do Projecto', 'Project Leadership') : L('Direcção da ATELCAB', 'ATELCAB Board of Directors'),
+  gestao: L('Gestão e Administração', 'Management & Administration'),
+  engenharia: L('Engenheiros de Liderança', 'Lead Engineers'),
+  tecnicos: L('Técnicos', 'Technicians')
+}[s]);
+const GCOL = ['#1b2559', '#c62828', '#0d9488', '#7c3aed', '#d97706'];
+
+// ================= Utilitários =================
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function toast(m, err) { const t = $('#toast'); t.textContent = m; t.className = err ? 'err' : ''; t.style.display = 'block'; clearTimeout(t._h); t._h = setTimeout(() => t.style.display = 'none', err ? 6000 : 2500); }
+const fail = e => toast(e?.message || String(e), true);
+const YEAR = new Date().getFullYear();
+const years = m => m.career_start ? Math.max(0, YEAR - m.career_start) : null;
+const yrsTxt = n => n == null ? '' : L(`${n} ${n === 1 ? 'ano' : 'anos'} de experiência`, `${n} ${n === 1 ? 'year' : 'years'} of experience`);
+const initials = n => (n || '?').split(/\s+/).filter(Boolean).map(w => w[0]).slice(0, 2).join('').toUpperCase();
+const photoURL = p => p ? sb.storage.from('equipa').getPublicUrl(p).data.publicUrl : null;
+const avatar = (m, cls = '') => m.photo_path ? `<img class="avatar ${cls}" src="${photoURL(m.photo_path)}" alt="${esc(m.full_name)}" loading="lazy">`
+  : `<div class="avatar init ${cls}">${esc(initials(m.full_name))}</div>`;
+const safeName = n => n.normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^\w.\-]+/g, '_');
+async function compress(file, max = 900, q = 0.85) {
+  try { const img = await createImageBitmap(file); const s = Math.min(1, max / Math.max(img.width, img.height));
+    const c = document.createElement('canvas'); c.width = Math.round(img.width * s); c.height = Math.round(img.height * s);
+    c.getContext('2d').drawImage(img, 0, 0, c.width, c.height); return await new Promise(r => c.toBlob(r, 'image/jpeg', q)); } catch { return file; }
+}
+
+// ================= Estado =================
+let sb, session = null, me = null, groups = [], members = [], ships = [];
+const isAdmin = () => me?.role === 'admin';
+async function load() {
+  const [g, m, s] = await Promise.all([
+    sb.from('team_groups').select('*').order('sort'),
+    sb.from('members').select('*').order('full_name'),
+    sb.from('memberships').select('*').order('sort')]);
+  if (g.error) throw g.error; if (m.error) throw m.error; if (s.error) throw s.error;
+  groups = g.data; members = m.data; ships = s.data;
+}
+const memberOf = id => members.find(x => x.id === id);
+const shipsOf = id => ships.filter(s => s.member_id === id);
+const groupOf = id => groups.find(g => g.id === id);
+const roleIn = (m, s) => (s && F(s, 'role')) || F(m, 'title');
+
+async function boot() {
+  if (typeof SUPABASE_URL === 'undefined') { $('#root').innerHTML = '<p style="padding:20px">Falta o config.js</p>'; return; }
+  sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+  const { data } = await sb.auth.getSession(); session = data.session;
+  if (session) { const { data: p } = await sb.from('profiles').select('*').eq('id', session.user.id).maybeSingle(); me = p; }
+  window.onhashchange = route; route();
+}
+
+// ================= Layout =================
+function shell(html) {
+  $('#root').innerHTML = `<header><div class="bar">
+    <a class="brand" href="#/">${logo(34, true)}<div><span class="wm">ATELCAB</span><small>${L('A nossa equipa', 'Our team')}</small></div></a>
+    <span class="sp"></span>
+    <button class="hbtn" onclick="setLang('${LANG === 'pt' ? 'en' : 'pt'}')">🌐 ${LANG === 'pt' ? 'EN' : 'PT'}</button>
+    ${isAdmin() ? `<a class="hbtn" href="#/novo">➕ ${L('Membro', 'Member')}</a><a class="hbtn" href="#/grupos">⚙️</a>` : ''}
+    ${session ? `<button class="hbtn" onclick="logout()">${L('Sair', 'Sign out')}</button>` : `<a class="hbtn" href="#/entrar">🔑 ${L('Entrar', 'Sign in')}</a>`}
+  </div></header><main>${html}</main>`;
+}
+async function route() {
+  const [, page, id] = location.hash.split('/');
+  try {
+    shell(`<p class="muted">${L('A carregar…', 'Loading…')}</p>`);
+    if (page === 'entrar') return viewLogin();
+    await load();
+    if (page === 'g' && id) return viewGroup(decodeURIComponent(id));
+    if (page === 'm' && id) return await viewCV(+id);
+    if (page === 'novo' && isAdmin()) return viewEdit(null);
+    if (page === 'editar' && id && isAdmin()) return await viewEdit(+id);
+    if (page === 'grupos' && isAdmin()) return viewGroups();
+    return viewHome();
+  } catch (e) { console.error(e); fail(e); }
+}
+
+// ================= Início =================
+function viewHome() {
+  const act = members.filter(m => m.active);
+  const totalYears = act.reduce((s, m) => s + (years(m) || 0), 0);
+  const eng = new Set(ships.filter(s => s.section === 'engenharia').map(s => s.member_id)).size;
+  shell(`<div class="hero">${logo(70, true)}<div><div class="wm">ATELCAB, LDA.</div><p>${SLOGAN()}</p>
+      <p style="margin-top:8px;font-size:14px">${L('Conheça as pessoas que fazem a ATELCAB.', 'Meet the people behind ATELCAB.')}</p></div></div>
+    <div class="stats">
+      <div class="stat"><div class="n">${act.length}</div><div class="l">${L('Membros', 'Team members')}</div></div>
+      <div class="stat" style="--c:var(--red)"><div class="n">${totalYears}</div><div class="l">${L('Anos de experiência somados', 'Combined years of experience')}</div></div>
+      <div class="stat" style="--c:#0d9488"><div class="n">${eng}</div><div class="l">${L('Engenheiros de liderança', 'Lead engineers')}</div></div>
+      <div class="stat" style="--c:#7c3aed"><div class="n">${groups.length}</div><div class="l">${L('Equipas', 'Teams')}</div></div>
+    </div>
+    <div class="groups">${groups.map((g, i) => { const gs = ships.filter(s => s.group_id === g.id && memberOf(s.member_id)?.active);
+      return `<a class="gcard" style="--c:${GCOL[i % GCOL.length]}" href="#/g/${encodeURIComponent(g.slug)}">
+        <h2>${esc(F(g, 'name'))}</h2><div class="d">${esc(F(g, 'desc'))}</div>
+        <div class="chips">${SECTIONS.map(s => { const n = gs.filter(x => x.section === s).length; return n ? `<span class="chip">${SECT(s, g)} · ${n}</span>` : ''; }).join('') || `<span class="muted small">${L('Ainda sem membros', 'No members yet')}</span>`}</div>
+        <div style="margin-top:12px;font-weight:700;color:var(--navy)">${gs.length} ${L('membros', 'members')} →</div></a>`; }).join('')}</div>
+    <div class="card"><input id="q" placeholder="🔍 ${L('Procurar por nome ou cargo…', 'Search by name or position…')}"><div id="res" class="grid" style="margin-top:12px"></div></div>`);
+  $('#q').oninput = () => { const q = $('#q').value.trim().toLowerCase();
+    $('#res').innerHTML = q ? act.filter(m => `${m.full_name} ${m.title_pt || ''} ${m.title_en || ''}`.toLowerCase().includes(q)).map(m => memberCard(m)).join('') || `<p class="muted">${L('Nenhum resultado.', 'No results.')}</p>` : ''; };
+}
+function memberCard(m, s) {
+  const y = years(m);
+  return `<div class="mcard">${avatar(m)}<div class="nm">${esc(m.full_name)}</div><div class="tt">${esc(roleIn(m, s))}</div>
+    ${y != null ? `<span class="yrs">${yrsTxt(y)}</span>` : ''}
+    <div class="actions noprint" style="margin-top:6px"><a class="btn b-sm" href="#/m/${m.id}">📄 ${L('Currículo', 'CV')}</a>
+    ${isAdmin() ? `<a class="btn b-sm b-light" href="#/editar/${m.id}">✏️</a>` : ''}</div></div>`;
+}
+
+// ================= Equipa =================
+function viewGroup(slug) {
+  const g = groups.find(x => x.slug === slug); if (!g) return shell(`<div class="card">${L('Equipa não encontrada.', 'Team not found.')}</div>`);
+  const gs = ships.filter(s => s.group_id === g.id && memberOf(s.member_id)?.active);
+  const sec = s => gs.filter(x => x.section === s).sort((a, b) => a.sort - b.sort || memberOf(a.member_id).full_name.localeCompare(memberOf(b.member_id).full_name));
+  shell(`<p class="small noprint"><a href="#/">← ${L('Início', 'Home')}</a></p>
+    <div class="print-head">${logo(46)}<div><b style="font-family:Georgia,serif;font-size:20px;color:var(--navy)">ATELCAB, LDA.</b><div class="small muted">${SLOGAN()}</div></div></div>
+    <div class="row" style="align-items:center"><div><h1 style="margin:0">${esc(F(g, 'name'))}</h1><div class="muted">${esc(F(g, 'desc'))}</div></div>
+      <div style="flex:0" class="noprint"><button class="b-light" onclick="print()">🖨️ ${L('Imprimir / PDF', 'Print / PDF')}</button></div></div>
+    <div class="chips noprint" style="margin:14px 0">${SECTIONS.map(s => sec(s).length ? `<a class="chip" href="javascript:document.getElementById('s-${s}').scrollIntoView({behavior:'smooth'})">${SECT(s, g)} · ${sec(s).length}</a>` : '').join('')}</div>
+    ${SECTIONS.map(s => { const l = sec(s); return l.length ? `<div class="sect" id="s-${s}"><h2>${SECT(s, g)}</h2><span class="cnt">${l.length}</span></div>
+      <div class="grid">${l.map(x => memberCard(memberOf(x.member_id), x)).join('')}</div>` : ''; }).join('')
+      || `<div class="card muted">${L('Ainda não há membros nesta equipa.', 'No members in this team yet.')}${isAdmin() ? ` <a href="#/novo">${L('Adicionar membro', 'Add member')}</a>` : ''}</div>`}`);
+}
+
+// ================= Currículo padronizado =================
+async function viewCV(id) {
+  const m = memberOf(id); if (!m) return shell(`<div class="card">${L('Membro não encontrado.', 'Member not found.')}</div>`);
+  let ct = null;
+  if (session) { const { data } = await sb.from('member_contacts').select('*').eq('member_id', id).maybeSingle(); ct = data; }
+  const y = years(m), ms = shipsOf(id);
+  const list = (arr, fn) => (arr || []).filter(Boolean).map(fn).join('');
+  const sect = (t, body) => body ? `<h3>${t}</h3>${body}` : '';
+  shell(`<div class="noprint actions" style="justify-content:space-between;margin:0 auto 12px;max-width:820px">
+      <a href="javascript:history.back()">← ${L('Voltar', 'Back')}</a>
+      <span style="display:flex;gap:8px;flex-wrap:wrap"><button class="b-light b-sm" onclick="copyLink()">🔗 ${L('Copiar link', 'Copy link')}</button>
+      ${m.cv_pdf_path ? `<a class="btn b-light b-sm" target="_blank" href="${photoURL(m.cv_pdf_path)}">📎 ${L('CV original', 'Original CV')}</a>` : ''}
+      ${isAdmin() ? `<a class="btn b-light b-sm" href="#/editar/${id}">✏️ ${L('Editar', 'Edit')}</a>` : ''}
+      <button class="b-red b-sm" onclick="print()">🖨️ ${L('Guardar PDF', 'Save as PDF')}</button></span></div>
+    <div class="cv">
+      <div class="cv-top">${logo(40, true)}<div><span class="wm">ATELCAB, LDA.</span><small>${SLOGAN()}</small></div><span class="ttl">CURRICULUM VITAE</span></div>
+      <div class="cv-strip"></div>
+      <div class="cv-head">${avatar(m)}<div><h1>${esc(m.full_name)}</h1><div class="tt">${esc(F(m, 'title'))}</div>
+        <div class="meta">${y != null ? `⭐ ${yrsTxt(y)}<br>` : ''}${m.nationality ? `🌍 ${L('Nacionalidade', 'Nationality')}: ${esc(m.nationality)}<br>` : ''}
+        ${ct?.email ? `✉️ ${esc(ct.email)}<br>` : ''}${ct?.phone ? `📞 ${esc(ct.phone)}<br>` : ''}
+        ${ms.map(s => { const g = groupOf(s.group_id); return g ? `🏢 ${esc(F(g, 'name'))} — ${SECT(s.section, g)}${F(s, 'role') ? ` (${esc(F(s, 'role'))})` : ''}` : ''; }).filter(Boolean).join('<br>')}</div></div></div>
+      <div class="cv-body">
+        ${sect(L('Perfil profissional', 'Professional profile'), F(m, 'summary') ? `<p>${esc(F(m, 'summary'))}</p>` : '')}
+        ${sect(L('Experiência profissional', 'Professional experience'), list(m.experience, e => `<div class="item"><div class="per">${esc(e.periodo)}</div>
+          <div><span class="rl">${esc(F(e, 'cargo'))}</span>${e.empresa ? ` — <span class="co">${esc(e.empresa)}</span>` : ''}${F(e, 'desc') ? `<div class="ds">${esc(F(e, 'desc'))}</div>` : ''}</div></div>`))}
+        ${sect(L('Formação académica', 'Education'), list(m.education, e => `<div class="item"><div class="per">${esc(e.ano)}</div><div><span class="rl">${esc(F(e, 'curso'))}</span>${e.inst ? ` — <span class="co">${esc(e.inst)}</span>` : ''}</div></div>`))}
+        ${sect(L('Certificações e formações', 'Certifications & training'), list(m.certifications, e => `<div class="item"><div class="per">${esc(e.ano)}</div><div>${esc(e.nome)}</div></div>`))}
+        ${sect(L('Línguas', 'Languages'), list(m.languages, e => `<div class="item"><div class="per">${esc(e.lingua)}</div><div>${esc(e.nivel)}</div></div>`))}
+        ${sect(L('Competências', 'Skills'), F(m, 'skills') ? `<p>${esc(F(m, 'skills'))}</p>` : '')}
+      </div>
+      <div class="cv-foot"><span>ATELCAB, LDA. — ${SLOGAN()}</span><span>${L('Actualizado em', 'Updated on')} ${new Date(m.updated_at).toLocaleDateString(LANG === 'en' ? 'en-GB' : 'pt-PT')}</span></div>
+    </div>`);
+  document.title = `CV — ${m.full_name} — ATELCAB`;
+}
+function copyLink() { navigator.clipboard?.writeText(location.href).then(() => toast(L('Link copiado.', 'Link copied.'))).catch(() => prompt('Link:', location.href)); }
+
+// ================= Login =================
+function viewLogin() {
+  shell(`<form class="card" id="f" style="max-width:380px;margin:30px auto;text-align:center">${logo(60)}
+    <h2 style="margin-top:8px">${L('Entrar', 'Sign in')}</h2><p class="small muted">${L('Use a mesma conta da plataforma de PTs.', 'Use your ATELCAB portal account.')}</p>
+    <label style="text-align:left">Email</label><input type="email" name="e" required>
+    <label style="text-align:left">${L('Palavra-passe', 'Password')}</label><input type="password" name="p" required>
+    <div class="actions"><button class="b-red" style="width:100%">${L('Entrar', 'Sign in')}</button></div></form>`);
+  $('#f').onsubmit = async e => { e.preventDefault(); const f = new FormData(e.target);
+    const { error } = await sb.auth.signInWithPassword({ email: f.get('e').trim(), password: f.get('p') });
+    if (error) return toast(L('Email ou palavra-passe incorrectos.', 'Wrong email or password.'), true);
+    location.hash = '#/'; location.reload(); };
+}
+async function logout() { await sb.auth.signOut(); location.hash = '#/'; location.reload(); }
+
+// ================= Editar membro (admin) =================
+const LISTS = {
+  experience: { t: () => L('Experiência profissional', 'Professional experience'), f: [['periodo', 'Período (ex.: 2018 – actual)'], ['empresa', 'Empresa / Projecto'], ['cargo_pt', 'Cargo (PT)'], ['cargo_en', 'Position (EN)'], ['desc_pt', 'Descrição (PT)', 1], ['desc_en', 'Description (EN)', 1]] },
+  education: { t: () => L('Formação académica', 'Education'), f: [['ano', 'Ano'], ['inst', 'Instituição'], ['curso_pt', 'Curso / Grau (PT)'], ['curso_en', 'Degree (EN)']] },
+  certifications: { t: () => L('Certificações', 'Certifications'), f: [['ano', 'Ano'], ['nome', 'Certificação / Formação']] },
+  languages: { t: () => L('Línguas', 'Languages'), f: [['lingua', 'Língua'], ['nivel', 'Nível (ex.: Nativo, Fluente)']] }
+};
+const lrow = (k, v = {}) => `<div class="lrow" data-list="${k}"><button type="button" class="x b-sm" onclick="this.parentElement.remove()">✕</button>
+  <div class="row">${LISTS[k].f.map(([n, lab, big]) => `<div style="${big ? 'flex-basis:100%' : ''}"><label>${lab}</label>${big ? `<textarea data-k="${n}" style="min-height:60px">${esc(v[n])}</textarea>` : `<input data-k="${n}" value="${esc(v[n])}">`}</div>`).join('')}</div></div>`;
+function addRow(k) { $(`#l-${k}`).insertAdjacentHTML('beforeend', lrow(k)); }
+
+async function viewEdit(id) {
+  const m = id ? memberOf(id) : { active: true, education: [], experience: [], certifications: [], languages: [] };
+  if (id && !m) return shell('<div class="card">Membro não encontrado.</div>');
+  let ct = {}; if (id) { const { data } = await sb.from('member_contacts').select('*').eq('member_id', id).maybeSingle(); ct = data || {}; }
+  const my = id ? shipsOf(id) : [];
+  shell(`<p class="small"><a href="${id ? `#/m/${id}` : '#/'}">← Voltar</a></p><h1>${id ? 'Editar membro' : 'Novo membro'}</h1>
+    <form id="f">
+    <div class="card"><h2>Dados principais</h2>
+      <div class="row" style="align-items:center"><div style="flex:0;min-width:120px;text-align:center" id="pv">${avatar(m.full_name ? m : { full_name: '?' })}</div>
+        <div><label>Fotografia (de preferência tipo passe, de frente)</label><input type="file" name="photo" accept="image/*"></div></div>
+      <label>Nome completo *</label><input name="full_name" required value="${esc(m.full_name)}">
+      <div class="row"><div><label>Título / cargo (PT)</label><input name="title_pt" value="${esc(m.title_pt)}" placeholder="ex.: Engenheiro Electrotécnico Sénior"></div>
+        <div><label>Title / position (EN)</label><input name="title_en" value="${esc(m.title_en)}" placeholder="e.g. Senior Electrical Engineer"></div></div>
+      <div class="row"><div><label>Ano em que começou a carreira</label><input name="career_start" type="number" min="1950" max="${YEAR}" value="${m.career_start ?? ''}" placeholder="ex.: 2008">
+        <p class="small muted" style="margin:4px 0 0">Os anos de experiência são calculados sozinhos todos os anos.</p></div>
+        <div><label>Nacionalidade</label><input name="nationality" value="${esc(m.nationality)}" placeholder="ex.: Angolana"></div></div>
+      <div class="row"><div><label>Email (só visível com login)</label><input name="email" type="email" value="${esc(ct.email)}"></div>
+        <div><label>Telefone (só visível com login)</label><input name="phone" value="${esc(ct.phone)}"></div></div>
+      <label style="display:flex;gap:8px;align-items:center;font-weight:500"><input type="checkbox" name="active" style="width:auto" ${m.active ? 'checked' : ''}> Visível na plataforma</label>
+    </div>
+    <div class="card"><h2>Equipas a que pertence</h2>
+      ${groups.map(g => { const s = my.find(x => x.group_id === g.id) || {};
+        return `<div class="lrow" data-group="${g.id}"><b>${esc(g.name_pt)}</b><div class="row">
+          <div><label>Secção</label><select data-k="section"><option value="">— não pertence —</option>${SECTIONS.map(x => `<option value="${x}" ${s.section === x ? 'selected' : ''}>${LANG === 'en' ? SECT(x, g) : SECT(x, g)}</option>`).join('')}</select></div>
+          <div><label>Função nesta equipa (PT, opcional)</label><input data-k="role_pt" value="${esc(s.role_pt)}" placeholder="ex.: Director do Projecto"></div>
+          <div><label>Role in this team (EN)</label><input data-k="role_en" value="${esc(s.role_en)}" placeholder="e.g. Project Director"></div>
+          <div style="max-width:110px"><label>Ordem</label><input data-k="sort" type="number" value="${s.sort ?? 0}"></div></div></div>`; }).join('')}
+      <p class="small muted">"Ordem": número mais baixo aparece primeiro dentro da secção (ex.: o director = 1).</p></div>
+    <div class="card"><h2>Perfil profissional</h2>
+      <label>Resumo (PT)</label><textarea name="summary_pt" placeholder="3 a 5 linhas sobre a pessoa e a sua experiência">${esc(m.summary_pt)}</textarea>
+      <label>Summary (EN)</label><textarea name="summary_en">${esc(m.summary_en)}</textarea></div>
+    ${Object.keys(LISTS).map(k => `<div class="card"><h2>${LISTS[k].t()}</h2><div id="l-${k}">${(m[k] || []).map(v => lrow(k, v)).join('')}</div>
+      <button type="button" class="b-light b-sm" onclick="addRow('${k}')">➕ Adicionar</button></div>`).join('')}
+    <div class="card"><h2>Competências</h2>
+      <label>Competências (PT)</label><textarea name="skills_pt" placeholder="ex.: AutoCAD, redes MT/BT, PTs, gestão de equipas…">${esc(m.skills_pt)}</textarea>
+      <label>Skills (EN)</label><textarea name="skills_en">${esc(m.skills_en)}</textarea>
+      <label>CV original em PDF (opcional)</label><input type="file" name="cvpdf" accept="application/pdf">
+      ${m.cv_pdf_path ? `<p class="small">Já existe um CV original carregado. Escolha outro para o substituir.</p>` : ''}</div>
+    <div class="actions" style="margin-bottom:30px"><button class="b-red">💾 Guardar</button>
+      ${id ? `<button type="button" class="b-light" style="color:var(--red);margin-left:auto" onclick="delMember(${id})">🗑 Eliminar membro</button>` : ''}</div>
+    </form>`);
+  $('input[name=photo]').onchange = e => { const f = e.target.files[0]; if (f) $('#pv').innerHTML = `<img class="avatar" src="${URL.createObjectURL(f)}">`; };
+  $('#f').onsubmit = async e => {
+    e.preventDefault(); const b = e.submitter; b.disabled = true; const fd = new FormData(e.target);
+    try {
+      const rec = { full_name: fd.get('full_name').trim(), title_pt: fd.get('title_pt').trim() || null, title_en: fd.get('title_en').trim() || null,
+        career_start: fd.get('career_start') ? +fd.get('career_start') : null, nationality: fd.get('nationality').trim() || null,
+        summary_pt: fd.get('summary_pt').trim() || null, summary_en: fd.get('summary_en').trim() || null,
+        skills_pt: fd.get('skills_pt').trim() || null, skills_en: fd.get('skills_en').trim() || null, active: !!fd.get('active'), updated_at: new Date().toISOString() };
+      for (const k of Object.keys(LISTS)) rec[k] = [...document.querySelectorAll(`.lrow[data-list=${k}]`)].map(r => {
+        const o = {}; r.querySelectorAll('[data-k]').forEach(i => { const v = i.value.trim(); if (v) o[i.dataset.k] = v; }); return o; }).filter(o => Object.keys(o).length);
+      const photo = fd.get('photo');
+      if (photo && photo.size) { toast('A carregar fotografia…'); const blob = await compress(photo);
+        const path = `fotos/${Date.now()}-${safeName(rec.full_name)}.jpg`;
+        const { error } = await sb.storage.from('equipa').upload(path, blob, { contentType: 'image/jpeg' }); if (error) throw error; rec.photo_path = path; }
+      const pdf = fd.get('cvpdf');
+      if (pdf && pdf.size) { toast('A carregar CV…'); const path = `cvs/${Date.now()}-${safeName(pdf.name)}`;
+        const { error } = await sb.storage.from('equipa').upload(path, pdf, { contentType: 'application/pdf' }); if (error) throw error; rec.cv_pdf_path = path; }
+      let mid = id;
+      if (id) { const { error } = await sb.from('members').update(rec).eq('id', id); if (error) throw error; }
+      else { const { data, error } = await sb.from('members').insert(rec).select('id').single(); if (error) throw error; mid = data.id; }
+      const { error: ce } = await sb.from('member_contacts').upsert({ member_id: mid, email: fd.get('email').trim() || null, phone: fd.get('phone').trim() || null }); if (ce) throw ce;
+      const { error: de } = await sb.from('memberships').delete().eq('member_id', mid); if (de) throw de;
+      const rows = [...document.querySelectorAll('.lrow[data-group]')].map(r => ({ member_id: mid, group_id: +r.dataset.group,
+        section: r.querySelector('[data-k=section]').value, role_pt: r.querySelector('[data-k=role_pt]').value.trim() || null,
+        role_en: r.querySelector('[data-k=role_en]').value.trim() || null, sort: +r.querySelector('[data-k=sort]').value || 0 })).filter(x => x.section);
+      if (rows.length) { const { error } = await sb.from('memberships').insert(rows); if (error) throw error; }
+      toast('✅ Guardado.'); location.hash = `#/m/${mid}`;
+    } catch (err) { fail(err); b.disabled = false; }
+  };
+}
+async function delMember(id) {
+  if (!confirm('Eliminar este membro e o seu currículo?')) return;
+  const { error } = await sb.from('members').delete().eq('id', id); if (error) return fail(error);
+  toast('Membro eliminado.'); location.hash = '#/';
+}
+
+// ================= Gerir equipas (admin) =================
+function viewGroups() {
+  shell(`<p class="small"><a href="#/">← Voltar</a></p><h1>Gerir equipas</h1>
+    ${groups.map(g => `<form class="card" data-id="${g.id}"><div class="row">
+      <div><label>Nome (PT)</label><input name="name_pt" value="${esc(g.name_pt)}" required></div><div><label>Name (EN)</label><input name="name_en" value="${esc(g.name_en)}"></div>
+      <div style="max-width:100px"><label>Ordem</label><input name="sort" type="number" value="${g.sort}"></div></div>
+      <div class="row"><div><label>Descrição (PT)</label><input name="desc_pt" value="${esc(g.desc_pt)}"></div><div><label>Description (EN)</label><input name="desc_en" value="${esc(g.desc_en)}"></div></div>
+      <div class="actions"><button class="b-sm">Guardar</button>${g.slug !== 'empresa' ? `<button type="button" class="b-sm b-light" style="color:var(--red)" onclick="delGroup(${g.id})">🗑 Eliminar</button>` : ''}</div></form>`).join('')}
+    <form class="card" id="newg"><h2>➕ Nova equipa de projecto</h2><div class="row">
+      <div><label>Nome (PT)</label><input name="name_pt" required placeholder="ex.: Projecto BAD — Lote 2"></div><div><label>Name (EN)</label><input name="name_en"></div></div>
+      <div class="actions"><button class="b-red b-sm">Criar equipa</button></div></form>`);
+  document.querySelectorAll('form[data-id]').forEach(f => f.onsubmit = async e => { e.preventDefault(); const d = new FormData(f);
+    const { error } = await sb.from('team_groups').update({ name_pt: d.get('name_pt'), name_en: d.get('name_en') || null, desc_pt: d.get('desc_pt') || null,
+      desc_en: d.get('desc_en') || null, sort: +d.get('sort') || 0 }).eq('id', +f.dataset.id); if (error) return fail(error); toast('Guardado.'); });
+  $('#newg').onsubmit = async e => { e.preventDefault(); const d = new FormData(e.target);
+    const slug = safeName(d.get('name_pt').toLowerCase()).replace(/_+/g, '-').slice(0, 40) + '-' + Date.now().toString(36).slice(-4);
+    const { error } = await sb.from('team_groups').insert({ slug, name_pt: d.get('name_pt'), name_en: d.get('name_en') || null, sort: groups.length + 1 });
+    if (error) return fail(error); toast('Equipa criada.'); route(); };
+}
+async function delGroup(id) { if (!confirm('Eliminar esta equipa? Os membros continuam na plataforma.')) return;
+  const { error } = await sb.from('team_groups').delete().eq('id', id); if (error) return fail(error); route(); }
+
+boot();
+</script>
+</body>
+</html>
